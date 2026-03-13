@@ -1,207 +1,163 @@
 # 🏦 Banking Customer Behavior Analysis
 
-> **Final Project — Data Science & Data Analyst Bootcamp | dibimbing.id**  
-> **Author:** Iffat Ayman Ahnaf
+<div align="center">
+
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-1.5%2B-150458?logo=pandas&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power%20BI-Dashboard-F2C811?logo=powerbi&logoColor=black)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?logo=jupyter&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+
+**Final Project — Data Science & Data Analyst Bootcamp · dibimbing.id**
+*Oleh: Iffat Ayman Ahnaf*
+
+</div>
 
 ---
 
-## 📌 Project Overview
+## 📖 Latar Belakang
 
-This project analyzes banking customer behavior using **demographic profiling** and **RFM (Recency, Frequency, Monetary) segmentation** to help a bank identify high-value customers, detect churn risks, and formulate data-driven retention strategies.
+Sektor perbankan menghadapi tantangan besar dalam mempertahankan nasabah bernilai tinggi. Proyek ini menganalisis **1,04 juta data transaksi** dari sebuah bank di India untuk menjawab tiga pertanyaan utama:
 
-The dataset covers **1.04 million transaction records** from an Indian bank (sourced from Kaggle), spanning August–October 2016.
+1. Siapa profil demografis nasabah bank ini?
+2. Bagaimana segmentasi perilaku nasabah berdasarkan model RFM?
+3. Apa langkah strategis untuk mencegah churn nasabah bernilai tinggi?
 
 ---
 
 ## 🎯 Business Objectives
 
-1. **Identify customer demographic profiles** based on generation and wealth category.
-2. **Segment customers** using the RFM model to classify behavioral patterns.
-3. **Formulate strategic recommendations** to prevent churn, especially among high-value segments.
+- Mengidentifikasi profil nasabah berdasarkan generasi dan tingkat kekayaan (*Wealth Category*)
+- Melakukan segmentasi nasabah menggunakan model **RFM (Recency, Frequency, Monetary)**
+- Merumuskan rekomendasi strategis berbasis data untuk mencegah churn
 
 ---
 
-## 📂 Project Structure
+## 📂 Struktur Repo
 
 ```
 banking-customer-behavior-analysis/
-│
 ├── notebooks/
-│   ├── 01_Preprocessing.ipynb       # Data cleaning, outlier handling, aggregation
-│   └── 02_RFM_Segmentation.ipynb    # RFM scoring and customer segmentation
-│
+│   ├── 01_Preprocessing.ipynb        # Data cleaning & transformasi
+│   └── 02_RFM_Segmentation.ipynb     # RFM scoring & segmentasi
 ├── assets/
 │   ├── dashboard_customer_profile.png
 │   ├── dashboard_rfm_segmentation_analysis.png
 │   └── dashboard_strategic_recommendation.png
-│
 ├── docs/
-│   └── project_presentation.pdf     # Full slide deck
-│
+│   └── project_presentation.pdf
+├── .gitignore
 ├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## 🗃️ Dataset
+## 📥 Dataset & Dashboard
 
-| Attribute | Detail |
+> File CSV dan Power BI tidak disertakan di repo karena ukurannya besar.
+> Unduh langsung melalui link berikut:
+
+| Konten | Link |
 |---|---|
-| **Source** | [Kaggle — Bank Transaction Dataset](https://www.kaggle.com/) |
-| **Raw Rows** | 1,048,567 |
-| **Final Rows (after cleaning)** | 980,856 |
-| **Unique Customers** | 835,914 |
-| **Period** | August – September 2016 |
-| **Columns** | TransactionID, CustomerID, CustomerDOB, CustGender, CustLocation, CustAccountBalance, TransactionDate, TransactionTime, TransactionAmount (INR) |
+| 📊 Dataset CSV (raw, cleaned, RFM, final) | [Google Drive — Dataset](https://drive.google.com/drive/folders/1iy-9wJps6Lxlt4EKXfNwd611UscWoj78?usp=sharing) |
+| 📈 Power BI Dashboard (.pbix) | [Google Drive — Power BI](https://drive.google.com/file/d/1Uxhng8hNApXubeFkszs7nbtbEG5JAr1r/view?usp=sharing) |
 
 ---
 
-## 🔧 Data Preprocessing Pipeline
+## 🔧 Alur Preprocessing
 
-| Step | Description | Rows After |
+| Step | Aksi | Hasil |
 |---|---|---|
-| 1. Data Initialization | Fix datatypes | 1,048,567 |
-| 2. Handling Missing Values | Fill with median/mode | 1,048,567 |
-| 3. Handling Outliers | Remove invalid birth years (< 1929 or > 2015) | 984,259 |
-| 4. Location Standardization | Normalize 1000+ city name variations → 251 cities | 984,259 |
-| 5. Data Filtering | Keep Aug–Sep 2016 transactions only | 980,856 |
-| 6. Final Aggregation | Aggregate per CustomerID for RFM | **835,914 customers** |
+| 1 | Inisialisasi tipe data | 1.048.567 baris |
+| 2 | Isi missing value (median/modus) | 1.048.567 baris |
+| 3 | Hapus outlier tanggal lahir (< 1929 / > 2015) | 984.259 baris |
+| 4 | Standardisasi nama kota → 251 kota | 984.259 baris |
+| 5 | Filter periode Agustus–September 2016 | 980.856 baris |
+| 6 | Agregasi per CustomerID | **835.914 nasabah unik** |
 
 ---
 
-## 📊 Key Findings
+## 📊 Temuan Utama
 
-### 👤 Customer Profile
+### Profil Nasabah
 
-| Metric | Value |
+| Metrik | Nilai |
 |---|---|
-| Total Customers | 836K |
-| Total Balance | ₹ 85.85 Billion |
-| Average Age | 39.98 years |
-| Total Transactions | 980,856 |
+| Total Nasabah | 836K |
+| Total Saldo | ₹ 85,85 Miliar |
+| Rata-rata Usia | 39,98 tahun |
+| Total Transaksi | 980.856 |
 
-**Generational Balance Distribution:**
-- 🟣 Millennials: ₹ 18.96bn (largest)
-- 🟠 Gen X: ₹ 18.21bn
-- 🔵 Boomers: ₹ 8.08bn
-- 🟡 Gen Z & Alpha: ₹ 0.06bn
+Saldo terbesar dipegang oleh **Millennial (₹18,96 Miliar)** dan **Gen X (₹18,21 Miliar)**. Meski jumlah nasabah terbanyak ada di kelas **Standard** dan **Mass Market**, aset terbesar justru terkonsentrasi di segmen **Affluent** dan **High Net Worth** — mencerminkan Prinsip Pareto.
 
-**Wealth Distribution Insight:**  
-While the majority of customers fall in the **Standard** (163.88K) and **Mass Market** (126.72K) tiers, the largest share of total assets is concentrated in the **Affluent** (₹ 17.37bn) and **High Net Worth** (₹ 16.14bn) segments — a classic **Pareto Principle** effect.
+### Segmentasi RFM
 
----
-
-### 📈 RFM Segmentation
-
-#### RFM Scoring Rules
-
-| Dimension | Score 1 | Score 2 | Score 3 |
-|---|---|---|---|
-| **Recency** | > 35 days | 18–35 days | < 18 days |
-| **Frequency** | 1 transaction | — | ≥ 2 transactions |
-| **Monetary** | < ₹280 | ₹280–₹1,025 | > ₹1,025 |
-
-#### Segment Definitions
-
-| Segment | R | F | M | Description |
-|---|---|---|---|---|
-| **Champions** | 3 | 2 | 3 | Most active, high-value customers |
-| **Potential Loyal** | 1–3 | 1–2 | 2–3 | Ready to be upgraded to Champions |
-| **High Risk** | 1 | 1–2 | 2–3 | High-value customers going dormant |
-| **Active** | 2–3 | 1–2 | 1 | Regular users with low transaction value |
-| **Dormant** | 1 | 1 | 1 | Inactive, low-value customers |
-
-#### Segment Performance
-
-| Segment | # Customers | Total Transaction Value |
+| Segmen | Jumlah Nasabah | Total Nilai Transaksi |
 |---|---|---|
-| Potential Loyal | 334.36K | ₹ 758.74M |
-| High Risk | 181.06K | ₹ 425.68M |
-| Active | 182.49K | ₹ 21.76M |
-| Champions | 41.68K | ₹ 201.13M |
-| Dormant | 96.33K | ₹ 11.42M |
+| 🌱 Potential Loyal | 334.360 | ₹ 758,74 Juta |
+| ⚠️ High Risk | 181.060 | ₹ 425,68 Juta |
+| 💳 Active | 182.490 | ₹ 21,76 Juta |
+| 🥇 Champions | 41.680 | ₹ 201,13 Juta |
+| 😴 Dormant | 96.330 | ₹ 11,42 Juta |
 
 ---
 
-## 💡 Strategic Recommendations
+## 💡 Rekomendasi Strategis
 
-### 🚨 The Priority Catch
-
-| Priority | Target | Action |
+| Prioritas | Target | Aksi |
 |---|---|---|
-| **Loyalty Candidate** | 66K Potential Loyal (Affluent + HNW) | Upgrade to Champions via investment product campaigns |
-| **Urgent Win-Back** | 3,394 Rich/Ultra Rich in High Risk | Immediate personal outreach by Relationship Manager |
-| **High Value At-Risk** | ₹ 22bn at risk | Secure assets before full dormancy |
-
-### 📋 Strategic Action Matrix
-
-- **Champions (VIP Focus):** Provide priority service access and exclusive product offerings to secure core asset loyalty.
-- **Potential Loyal (Up-Selling):** Run tier-upgrade campaigns and insurance/investment product offerings.
-- **Active (Engagement):** Boost transaction frequency via cashback programs and merchant promos.
-- **High Risk (Retention):** Immediate Relationship Manager intervention to secure ₹ 22bn at risk.
-- **Dormant (Re-Activation):** Send personalized re-engagement messages with incentives like admin-fee waivers.
+| **Loyalty Candidate** | 66K nasabah Potential Loyal (Affluent + HNW) | Kampanye tier-upgrade & produk investasi |
+| **Urgent Win-Back** | 3.394 nasabah Rich/Ultra Rich di High Risk | Intervensi langsung oleh Relationship Manager |
+| **High Value At-Risk** | Seluruh segmen High Risk | Amankan ₹ 22 Miliar sebelum benar-benar dormant |
 
 ---
 
-## 📊 Dashboard Preview
+## 📊 Preview Dashboard
 
 ### Customer Profile
-![Customer Profile Dashboard](assets/dashboard_customer_profile.png)
+![Customer Profile](assets/dashboard_customer_profile.png)
 
 ### RFM Segmentation Analysis
-![RFM Dashboard](assets/dashboard_rfm_segmentation_analysis.png)
+![RFM Segmentation](assets/dashboard_rfm_segmentation_analysis.png)
 
 ### Strategic Recommendations
-![Strategic Recommendations Dashboard](assets/dashboard_strategic_recommendation.png)
-
-> 📌 Dashboards were built using **Microsoft Power BI**.
+![Strategic Recommendations](assets/dashboard_strategic_recommendation.png)
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Tool | Purpose |
+| Tools | Kegunaan |
 |---|---|
-| **Python** | Data processing & analysis |
-| **Pandas** | Data manipulation |
-| **NumPy** | Numerical computation |
-| **Jupyter Notebook** | Exploratory analysis |
-| **Microsoft Power BI** | Interactive dashboards |
+| Python + Pandas + NumPy | Preprocessing & analisis data |
+| Jupyter Notebook | Eksplorasi & dokumentasi |
+| Microsoft Power BI | Dashboard interaktif |
 
 ---
 
-## 🚀 How to Run
+## 🚀 Cara Menjalankan
 
-1. **Clone this repository**
-   ```bash
-   git clone https://github.com/yourusername/banking-customer-behavior-analysis.git
-   cd banking-customer-behavior-analysis
-   ```
+```bash
+# 1. Clone repo
+git clone https://github.com/yourusername/banking-customer-behavior-analysis.git
+cd banking-customer-behavior-analysis
 
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+# 2. Install dependencies
+pip install -r requirements.txt
 
-3. **Download the dataset**  
-   Get the dataset from [Kaggle](https://www.kaggle.com/) and place it in the project root directory.
-
-4. **Run notebooks in order**
-   ```bash
-   jupyter notebook notebooks/01_Preprocessing.ipynb
-   jupyter notebook notebooks/02_RFM_Segmentation.ipynb
-   ```
+# 3. Download dataset dari Google Drive, lalu jalankan notebook secara berurutan
+jupyter notebook
+```
 
 ---
 
-## 📬 Contact
+## 📬 Tentang Penulis
 
-**Iffat Ayman Ahnaf**  
-Data Analyst in Training | dibimbing.id Bootcamp Graduate  
-📚 S1 Islamic Finance & Banking — Universitas Muhammadiyah Yogyakarta  
-💼 Former Intern @ Bank Muamalat Indonesia & Paste Laboratory
+**Iffat Ayman Ahnaf** — Data Analyst in Training · dibimbing.id Bootcamp  
+S1 Keuangan & Perbankan Islam · Universitas Muhammadiyah Yogyakarta  
+Intern @ Bank Muamalat Indonesia · Paste Laboratory
 
 ---
 
-*⭐ If you found this project helpful, consider giving it a star!*
+<div align="center">⭐ Jika proyek ini bermanfaat, jangan lupa beri bintang! ⭐</div>
